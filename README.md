@@ -1,88 +1,76 @@
 
-# Ludo-CLI
+# LUDO-CS Game - README
 
-**Ludo-CLI** is a command-line implementation of the traditional board game Ludo. This program, written in C, simulates the gameplay and rules of the classic game, supporting up to four players. The objective for each player is to navigate all their pieces from the starting base to the "Home" area before the others.
+## Overview
+LUDO-CS is an enhanced and strategic version of the classic Ludo game. Based on traditional rules, LUDO-CS adds player-specific behaviors, options for clockwise and counterclockwise movement, and special mystery cells with various effects, creating a more dynamic and unpredictable gameplay experience.
 
-## Table of Contents
+## Game Rules and Features
 
-- [About the Game](#about-the-game)
-- [Rules and Gameplay](#rules-and-gameplay)
-- [Code Structure](#code-structure)
-- [Compiling and Running the Game](#compiling-and-running-the-game)
-- [Example Output](#example-output)
-- [Author](#author)
-- [License](#license)
+### Players and Setup
+1. **Number of Players**: Four players, each assigned a color (Red, Yellow, Green, or Blue).
+2. **Pieces**: Each player has four pieces that must travel from their base to their home.
+3. **Starting and Movement**: A six-sided die determines movement. Rolling a six allows a piece to leave the base, grants an additional turn, and allows players to roll up to two more consecutive sixes. Rolling three consecutive sixes forfeits the turn.
 
----
+### Traditional Gameplay Rules
+1. **Piece Movement**: Pieces advance by the value shown on the die.
+2. **Capturing Opponent Pieces**: Landing on an opponent’s piece sends it back to its base.
+3. **Exact Roll for Home Entry**: Pieces must roll the exact number to enter the home zone.
 
-## About the Game
+### Extended LUDO-CS Rules
 
-Ludo is a popular board game derived from the ancient Indian game Pachisi. This version of Ludo uses a six-sided die and allows players to capture opponent pieces, adding strategy and excitement. **Ludo-CLI** simulates this experience with a focus on core gameplay mechanics, making it suitable for educational purposes and for those interested in studying turn-based game programming.
+#### Unique Player Behaviors
+Each player has a distinctive strategy:
+- **Red (Aggressive)**: Prioritizes capturing opponent pieces over advancing toward home.
+- **Yellow (Winning Focus)**: Focuses on moving pieces home rather than capturing.
+- **Green (Homeward Focus)**: Prioritizes advancing pieces home over capturing opponents.
+- **Blue (Mystery Cell Enthusiast)**: Moves pieces in a cyclic order, focusing on mystery cells when moving counterclockwise.
 
-## Rules and Gameplay
+#### Clockwise and Counterclockwise Movement
+1. **Clockwise/Counterclockwise Assignment**: When a player rolls a six to move a piece onto the board, a coin toss determines its movement direction:
+   - **Heads**: Moves clockwise (traditional direction).
+   - **Tails**: Moves counterclockwise.
+2. **Changing Direction**: Once on the board, pieces follow their assigned direction unless affected by a mystery cell (e.g., Pita-Kotuwa) that may alter it.
 
-### Setup
-- **Players**: Up to four players, each assigned a color: **Red**, **Yellow**, **Green**, or **Blue**.
-- **Pieces**: Each player has four pieces, starting in their color-specific base.
-- **Objective**: Move all four pieces from the base to the home area, following a clockwise path on the board.
+#### Mystery Cells
+Mystery cells introduce an element of surprise with unique effects:
 
-### Turn Order
-1. **Dice Roll**:
-   - Each player rolls a six-sided die once per turn.
-   - A roll of six allows the player to either move a piece from the base to the starting point or continue moving a piece already in play. A six also grants an additional roll.
-   - Rolling three consecutive sixes forfeits the turn.
+1. **Appearance**: A mystery cell appears randomly on any of the 52 cells in the standard path after two rounds and changes location every four rounds. It does not appear on an occupied cell or in the same spot consecutively.
 
-2. **Piece Movement**:
-   - Pieces advance based on dice rolls.
-   - Landing on an opponent's piece sends that piece back to its base.
+2. **Effects of Landing on a Mystery Cell**:
+   - **Teleportation**: A piece may be teleported to one of six possible locations:
+     - **Bhawana** (9 cells from Yellow’s approach)
+     - **Kotuwa** (27 cells from Yellow’s approach)
+     - **Pita-Kotuwa** (46 cells from Yellow’s approach)
+     - **Base**: Returns the piece to its base.
+     - **X (Starting Point)**: Moves the piece to its color-specific starting position.
+     - **Approach Cell**: Moves the piece to its color’s approach cell, just before the home straight.
+   
+   - **Location-Specific Effects**:
+     - **Bhawana**: The piece may feel energized (doubling movement) or sick (halving movement) for the next four rounds.
+     - **Kotuwa**: The piece is restricted from movement for the next four rounds. If the player rolls three consecutive threes during this period, the piece is sent back to base.
+     - **Pita-Kotuwa**: If the piece was moving clockwise, it switches to counterclockwise. If it was already moving counterclockwise, it is teleported to Kotuwa.
 
-3. **Winning Condition**:
-   - The first player to move all four pieces to their home wins. The game can continue to determine further rankings.
+### Winning Condition
+The first player to bring all their pieces home wins the game. The game may continue to determine second, third, and fourth places.
 
-4. **Special Cells**:
-   - Approach cells and Home Straight paths are specific to each player color.
+## Project Setup
 
-## Code Structure
-
-The project contains the following files:
-
-- **`main.c`**: Contains the main function that initializes the game.
-- **`game_logic.c`**: Implements the core game logic, including player moves, dice rolling, capturing, and win conditions.
-- **`types.h`**: Defines structures and constants used throughout the program.
-
-### Functions
-
-- **`game()`**: The main game loop, which controls player turns, manages the dice rolls, and checks for win conditions.
-- **`movePiece()`**: Moves a piece based on dice rolls and captures opponents when applicable.
-- **`capture()`**: Checks if a player lands on an opponent’s piece and processes the capture.
-- **`displaySummary()`**: Displays a round summary of each player’s pieces.
-
-## Compiling and Running the Game
-
-### Requirements
-- **Compiler**: GCC or compatible C compiler
-
-### Instructions
-1. **Compile the Program**:
+1. **Language**: C
+2. **Compilation**:
    ```bash
-   gcc main.c game_logic.c -o ludo-cli
+   gcc main.c game_logic.c -o ludo-cs
    ```
-2. **Run the Program**:
+3. **Execution**:
    ```bash
-   ./ludo-cli
+   ./ludo-cs
    ```
 
-## Example Output
+## File Structure
+This project is divided into three main files:
 
-The simulation provides detailed output, including:
-- **Dice Rolls**: Each player's roll results.
-- **Piece Movements**: Tracks pieces as they move, capture opponents, and enter home.
-- **Game Results**: Announces the winning player and game status after each round.
-
-## Author
-Kalana Jinendra
+- **types.h**: Contains type definitions and structure declarations used throughout the game, including `Player`, `Piece`, and `Cell` structures.
+- **main.c**: Contains the `main` function that initiates the game by calling the `game()` function in `game_logic.c`.
+- **game_logic.c**: Implements the core game mechanics, including player behaviors, piece movement, capturing logic, direction changes, and the mystery cell effects.
 
 ## License
-This project is open for educational and non-commercial use.
-
----
+This project is for educational purposes and is licensed for personal use only.
