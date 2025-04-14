@@ -77,4 +77,6 @@ This project is divided into three main files:
 - **game_logic.c**: Implements the core game mechanics, including player behaviors, piece movement, capturing logic, direction changes, and the mystery cell effects.
 
 ## License
-This project is for educational purposes and is licensed for personal use only.
+<!-- This project is for educational purposes and is licensed for personal use only. -->
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
