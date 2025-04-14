@@ -1,6 +1,10 @@
 
 # LUDO-CS Game 
 
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+
 ## Overview
 LUDO-CS is an enhanced and strategic version of the classic Ludo game. Based on traditional rules, LUDO-CS adds player-specific behaviors, options for clockwise and counterclockwise movement, and special mystery cells with various effects, creating a more dynamic and unpredictable gameplay experience.
 
