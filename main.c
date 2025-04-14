@@ -11,7 +11,7 @@
 
 int main(){
     
-    srand(7282);
+    srand(time(NULL);
 
     game();
 
